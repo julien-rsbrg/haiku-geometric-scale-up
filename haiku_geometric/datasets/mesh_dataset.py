@@ -90,6 +90,9 @@ class MeshDataset(GraphDataset):
         return graph
 
     def _build_mesh_graph(self,n_subdivision:int=2)->DataGraphTuple:
+        print()
+        print(mesh_generator.set_simple_mesh())
+        print()
         node_coords, p_elem2nodes, elem2nodes, boundary2nodes = mesh_generator.set_simple_mesh()
         # remove z coord
         node_coords = node_coords[:, :2]

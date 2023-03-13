@@ -147,6 +147,10 @@ def reconstruct_graph_from_subgraphs(subgraphs_dataset:GraphDataset, indices_tak
         return converter_after_merging,np.array(id2newInd_new_elems)
 
     all_nodes = np.array([])
+    all_y = np.array([])
+    keep_completing_y = True
+    all_train_mask = np.array([])
+    keep_completing_train_mask = True
     all_edges = np.array([])
     all_senders = np.array([])
     all_receivers = np.array([])
@@ -171,7 +175,16 @@ def reconstruct_graph_from_subgraphs(subgraphs_dataset:GraphDataset, indices_tak
             id2n_converter_to_loc = get_converter_to_id_loc(id2n_converter_to_glob)
             id2n_loc_new_nodes = id2n_converter_to_loc[id2n_glob_node_to_add[id2globToAdd_new_nodes]]
             all_nodes = np.concatenate([all_nodes,subgraph.nodes[id2n_loc_new_nodes]],axis=0) if all_nodes.size else subgraph.nodes[id2n_loc_new_nodes]
-
+            if subgraph.y is not None and keep_completing_y:
+                all_y = np.concatenate([all_y,subgraph.y[id2n_loc_new_nodes]],axis=0) if all_y.size else subgraph.y[id2n_loc_new_nodes]
+            else:
+                keep_completing_y = False
+                all_y = None
+            if subgraph.train_mask is not None and keep_completing_train_mask:
+                all_train_mask = np.concatenate([all_train_mask,subgraph.train_mask[id2n_loc_new_nodes]],axis=0) if all_train_mask.size else subgraph.train_mask[id2n_loc_new_nodes]
+            else:
+                keep_completing_train_mask = False
+                all_train_mask = None
             # update the record of the node added
             id2n_glob_node_added = np.concatenate([id2n_glob_node_added,id2n_glob_node_to_add[id2globToAdd_new_nodes]],axis=0) if id2n_glob_node_added.size else id2n_glob_node_to_add
             
@@ -208,8 +221,8 @@ def reconstruct_graph_from_subgraphs(subgraphs_dataset:GraphDataset, indices_tak
       n_edge=n_edge,
       globals=global_context,
       position= all_nodes,
-      y = None,
-      train_mask=None
+      y = all_y,
+      train_mask=all_train_mask
       )
 
     return reconstructed_graph

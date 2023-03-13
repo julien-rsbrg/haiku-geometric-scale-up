@@ -6,6 +6,7 @@ import urllib
 from typing import Optional
 from zipfile import ZipFile
 import pickle 
+import numpy as np
 
 
 # function adapted from:

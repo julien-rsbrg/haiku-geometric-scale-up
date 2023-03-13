@@ -3,7 +3,7 @@ import numpy as np
 import scipy
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-def set_quadmesh(xmin:int, xmax:int, ymin:int, ymax:int, nx:int, ny:int)->Tuple(np.array):
+def set_quadmesh(xmin:int, xmax:int, ymin:int, ymax:int, nx:int, ny:int)->Tuple[np.array]:
     '''
     Create a mesh of quadrangles
 
@@ -50,7 +50,7 @@ def set_quadmesh(xmin:int, xmax:int, ymin:int, ymax:int, nx:int, ny:int)->Tuple(
 
 
 
-def add_elem_to_mesh(node_coords:np.array, p_elem2nodes:np.array, elem2nodes:np.array, new_elemid_nodes:np.array)->Tuple(np.array):
+def add_elem_to_mesh(node_coords:np.array, p_elem2nodes:np.array, elem2nodes:np.array, new_elemid_nodes:np.array)->Tuple[np.array]:
     elem2nodes = np.concatenate(
         (elem2nodes, new_elemid_nodes), axis=-1)
     p_elem2nodes = np.concatenate(
@@ -67,7 +67,7 @@ def get_id_n_nearest_nodes(node_coords:np.array, new_node_coords:np.array, n:int
     return np.argpartition(Mdist[:, 0], n)[:n]
 
 
-def add_node_to_mesh(node_coords:np.array, p_elem2nodes:np.array, elem2nodes:np.array, new_node_coords:np.array, join_to_new_elem:bool=True)->Tuple(np.array):
+def add_node_to_mesh(node_coords:np.array, p_elem2nodes:np.array, elem2nodes:np.array, new_node_coords:np.array, join_to_new_elem:bool=True)->Tuple[np.array]:
     '''
     link new node at _node_coords to the 2 closest nodes of node_coords
     '''
@@ -90,7 +90,7 @@ def add_node_to_mesh(node_coords:np.array, p_elem2nodes:np.array, elem2nodes:np.
 
 
 
-def set_simple_mesh(l_bound:List[int]=[0.0, 1.0, 0.0, 1.0])-> Tuple(np.array):
+def set_simple_mesh(l_bound:List[int]=[0.0, 1.0, 0.0, 1.0])->Tuple[np.array]:
     '''
     set the mesh constituted of one rectangle with points [l_bound[0],l_bound[2]] and [l_bound[1],l_bound[3]]  
     
@@ -126,7 +126,7 @@ def get_global_ids_nodes(node_coords:np.array, nodes_to_check:np.array)-> np.arr
     return global_ids
 
 
-def subdivide(node_coords:np.array, p_elem2nodes:np.array, elem2nodes:np.array, id_p_elem2nodes:int, n_subdivision:int=4)-> Tuple(np.array):
+def subdivide(node_coords:np.array, p_elem2nodes:np.array, elem2nodes:np.array, id_p_elem2nodes:int, n_subdivision:int=4)->Tuple[np.array]:
     '''
     Subdivide the given element into n_subdivision**2 elements
 
@@ -234,7 +234,7 @@ def update_boundary(node_coords:np.array, boundary2nodes:np.array, n_subdivision
 
 
 
-def subdivide_all(node_coords:np.array, p_elem2nodes:np.array, elem2nodes:np.array, boundary2nodes:np.array, n_subdivision:int=4)->Tuple(np.array):
+def subdivide_all(node_coords:np.array, p_elem2nodes:np.array, elem2nodes:np.array, boundary2nodes:np.array, n_subdivision:int=4)->Tuple[np.array]:
     '''
     Sequentially subdivide all the elements of the given mesh
      
