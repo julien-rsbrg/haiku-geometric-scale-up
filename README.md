@@ -5,6 +5,7 @@
 | [**Quickstart**](#quickstart)
 | [**Examples**](#examples)
 | [**Documentation**](https://haiku-geometric.readthedocs.io/en/latest/)
+| [**Fork precision**](#fork)
 | [**License**](#license)
 
 [![Documentation Status](https://readthedocs.org/projects/haiku-geometric/badge/?version=latest)](https://haiku-geometric.readthedocs.io/en/latest/?badge=latest)
@@ -123,6 +124,10 @@ Haiku Geometric can be tested using `pytest` by running the following command:
 ```bash
 python -m pytest test/
 ```
+
+## Fork precision
+
+The goal of this fork is to enable graph neural networks to work on humongous graphs in terms of node and edge numbers. To this end, some tools to handle graph will be implemented that torch_geometric.loader already provides like NeighborLoader for instance.
 
 ## License
 

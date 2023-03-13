@@ -47,3 +47,23 @@ def extract_zip(zip_file, folder):
 def pickle_save_object(obj, file_path):
     with open(file_path, "wb") as f:
         pickle.dump(obj, f)
+
+
+def check_row_exists_in_matrix(matrix, row, tol=1e-5):
+        '''
+        Check that all the rows of matrix are distinct from row 
+
+        Args:
+        - matrix: np.array of shape (n,dim)
+        - row: np.array of shape (dim,)
+        Returns:
+        - bool of whether the row is in the matrix or not 
+        '''
+        flag_matrix = np.zeros(matrix.shape)
+        for i in range(row.shape[-1]):
+            flag_matrix[:, i] = np.where(
+                abs(matrix[:, i] - row[i]) < tol, 1, 0)
+            
+        is_same_row = np.prod(flag_matrix, axis=1)
+        N_identic_rows = np.sum(is_same_row)
+        return N_identic_rows >= 1
